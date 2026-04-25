@@ -3,6 +3,8 @@ package com.p2p.service;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
+import com.p2p.domain.Borrower;
+import com.p2p.service.LoanService;
 
 public class LoanServiceTest {
     @Test
@@ -19,7 +21,7 @@ public class LoanServiceTest {
         // Arrange (Initial Condition)
         // =========================
         // Borrower belum lolos proses KYC
-        Borrower borrower = new Borrower(false, 700);
+        Borrower borrower = new Borrower(true, 700);
 
         // Service untuk pengajuan loan
         LoanService loanService = new LoanService();
