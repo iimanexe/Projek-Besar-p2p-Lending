@@ -38,27 +38,35 @@ public class LoanServiceTest {
 
     @Test 
     void shouldRejectLoanWhenAmountIsZeroOrNegative() { // test case 2
-        // SKENARIO 
-        // JANGAN SAMPAI ADA ORANG YANG BISA PINJAM 0 ATAU MINUS
+        // =====================================================
+        // SCENARIO:
+        // Borrower terverifikasi (KYC = true)
+        // Ketika borrower mengajukan pinjaman <= 0
+        // Maka sistem harus menolak dengan melempar exception
+        // =====================================================
 
         // membuat objek peminjam di test case 2 dengan tingkat kepercayaan 700
-        Borrower borrower2 = new Borrower(false, 500);
+        Borrower borrower2 = new Borrower(true, 500);
 
         // membuat objek pemberi pinjaman
         LoanService service2 = new LoanService();
 
         // jumlah pinjaman 
-        BigDecimal amount = BigDecimal.ZERO;
+        BigDecimal amount2 = BigDecimal.ZERO;
 
         assertThrows(IllegalArgumentException.class, () -> {
-            service2.createLoan(borrower2, amount);
+            service2.createLoan(borrower2, amount2);
         });
     }
 
     @Test
-    void shouldApproveLoanWhenCreditScoreHigh(){
-        // SKENARIO
-        // memberikan persetujuan jika credit scorenya tinggi 
+    void shouldApproveLoanWhenCreditScoreHigh(){ // test case 03
+        // =====================================================
+        // SCENARIO:
+        // Borrower terverifikasi (KYC = true)
+        // Ketika cerdit score Borrower tinggi
+        // Maka sistem harus memberikan approve pengajuan pinjaman tersebut
+        // =====================================================
 
         // membuat objek peminjam dengan tingkat kepercayaan >= 600
         Borrower borrower3 = new Borrower(true, 800);
@@ -77,12 +85,16 @@ public class LoanServiceTest {
     }
 
     @Test
-    void shouldRejectLoanWhenCreditScoreLow(){
-        // SKENARIO
-        // menolak saat credit score rendah 
+    void shouldRejectLoanWhenCreditScoreLow(){ // test case 04
+        // =====================================================
+        // SCENARIO:
+        // Borrower terverifikasi (KYC = true)
+        // Ketika cerdit score Borrower rendah
+        // Maka sistem harus menolak pengajuan pinjaman tersebut
+        // ===================================================== 
 
         // membuat objek peminjam dengan tingkat kepercayaan <= 600
-        Borrower borrower4 = new Borrower(false, 200);
+        Borrower borrower4 = new Borrower(true, 200);
 
         // membuat objek pemberi pinjaman 
         LoanService service4 = new LoanService();
@@ -94,6 +106,6 @@ public class LoanServiceTest {
         Loan Hasil = service4.createLoan(borrower4, amount4);
 
         // memeriksa status 
-        assertEquals(Hasil.getStatus(), Loan.Status.REJECTED);
+        assertEquals(Loan.Status.REJECTED, Hasil.getStatus());
     }
 }
