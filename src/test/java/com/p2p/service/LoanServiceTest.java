@@ -77,7 +77,7 @@ public class LoanServiceTest {
         // jumlah pinjaman yang diajukan
         BigDecimal amount3 = BigDecimal.valueOf(400);
 
-        //memanggil methode dari objek peminjam
+        //memanggil methode dari objek pemberi pinjaman
         Loan HasilLoan = service3.createLoan(borrower3, amount3);
 
         // memeriksa apakah status hasil loan di approve atau tidak
